@@ -1,13 +1,17 @@
-import "./App.css"
+import { useState } from "react"
+import GroupList from "./components/GroupList"
 
-function App() {
+export default function App() {
+  const [activeGroup, setActiveGroup] = useState(null)
+
   return (
-    <>
-      <h1 className="text-3xl font-bold">
-        custom url - webpage create by heimcodex
-      </h1>
-    </>
+    <div className="min-h-screen p-6">
+      <h1 className="text-3xl font-bold mb-6">Gestor de URLs</h1>
+      {activeGroup ? (
+        <div>Mostrando entradas para {activeGroup}</div>
+      ) : (
+        <GroupList selectGroup={setActiveGroup} />
+      )}
+    </div>
   )
 }
-
-export default App
