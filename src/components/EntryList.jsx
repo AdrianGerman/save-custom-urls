@@ -6,10 +6,13 @@ export default function EntryList({ group, goBack }) {
   const [url, setUrl] = useState("")
   const [note, setNote] = useState("")
   const [modalOpen, setModalOpen] = useState(false)
+  const [settingsOpen, setSettingsOpen] = useState(false)
+  const [newGroupName, setNewGroupName] = useState(group)
 
   useEffect(() => {
     const allGroups = JSON.parse(localStorage.getItem("urlGroups")) || {}
     setEntries(allGroups[group] || [])
+    setNewGroupName(group)
   }, [group])
 
   const saveEntries = (newEntries) => {
@@ -32,14 +35,48 @@ export default function EntryList({ group, goBack }) {
     setModalOpen(false)
   }
 
+  const handleRenameGroup = () => {
+    const trimmed = newGroupName.trim()
+    if (!trimmed || trimmed === group) return
+
+    const allGroups = JSON.parse(localStorage.getItem("urlGroups")) || {}
+    if (allGroups[trimmed]) return
+
+    allGroups[trimmed] = allGroups[group]
+    delete allGroups[group]
+    localStorage.setItem("urlGroups", JSON.stringify(allGroups))
+
+    setSettingsOpen(false)
+    goBack()
+  }
+
+  const handleDeleteGroup = () => {
+    if (!confirm(`¿Seguro que quieres borrar el grupo "${group}"?`)) return
+
+    const allGroups = JSON.parse(localStorage.getItem("urlGroups")) || {}
+    delete allGroups[group]
+    localStorage.setItem("urlGroups", JSON.stringify(allGroups))
+    setSettingsOpen(false)
+    goBack()
+  }
+
   return (
     <div className="text-white">
-      <button
-        onClick={goBack}
-        className="mb-4 bg-red-600 px-4 py-2 rounded hover:bg-red-700"
-      >
-        ← Volver a grupos
-      </button>
+      <div className="flex justify-between items-center mb-12">
+        <button
+          onClick={goBack}
+          className="bg-red-600 px-4 py-2 rounded hover:bg-red-700"
+        >
+          ← Volver a grupos
+        </button>
+        <button
+          onClick={() => setSettingsOpen(true)}
+          className="text-white text-2xl hover:text-gray-400"
+          title="Editar grupo"
+        >
+          ⚙️
+        </button>
+      </div>
 
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">URLs en: {group}</h2>
@@ -109,6 +146,42 @@ export default function EntryList({ group, goBack }) {
               >
                 Guardar
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {settingsOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
+          <div className="bg-gray-900 p-6 rounded-lg w-full max-w-md">
+            <h3 className="text-xl text-white mb-4">Editar grupo</h3>
+            <input
+              type="text"
+              value={newGroupName}
+              onChange={(e) => setNewGroupName(e.target.value)}
+              className="w-full p-2 bg-gray-800 text-white border border-gray-600 rounded mb-4"
+            />
+            <div className="flex justify-between">
+              <button
+                onClick={handleDeleteGroup}
+                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+              >
+                Borrar grupo
+              </button>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setSettingsOpen(false)}
+                  className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
+                >
+                  Cancelar
+                </button>
+                <button
+                  onClick={handleRenameGroup}
+                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                >
+                  Renombrar
+                </button>
+              </div>
             </div>
           </div>
         </div>
