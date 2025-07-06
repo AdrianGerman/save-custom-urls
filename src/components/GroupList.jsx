@@ -1,28 +1,14 @@
-import { useState, useEffect } from "react"
+import { useGroupManager } from "../hooks/useGroupManager"
 
 export default function GroupList({ selectGroup }) {
-  const [groups, setGroups] = useState([])
-  const [modalOpen, setModalOpen] = useState(false)
-  const [newGroup, setNewGroup] = useState("")
-
-  useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem("urlGroups")) || {}
-    setGroups(Object.keys(stored))
-  }, [])
-
-  const handleCreateGroup = () => {
-    const trimmed = newGroup.trim()
-    if (!trimmed) return
-
-    const current = JSON.parse(localStorage.getItem("urlGroups")) || {}
-    if (current[trimmed]) return
-
-    const updated = { ...current, [trimmed]: [] }
-    localStorage.setItem("urlGroups", JSON.stringify(updated))
-    setGroups(Object.keys(updated))
-    setNewGroup("")
-    setModalOpen(false)
-  }
+  const {
+    groups,
+    newGroup,
+    setNewGroup,
+    modalOpen,
+    setModalOpen,
+    handleCreateGroup
+  } = useGroupManager()
 
   return (
     <div className="max-w-5xl mx-auto">
@@ -36,7 +22,6 @@ export default function GroupList({ selectGroup }) {
         </button>
       </div>
 
-      {/* Lista en formato grilla */}
       {groups.length === 0 ? (
         <p className="text-gray-400">
           No hay grupos aún. Crea uno para comenzar.
@@ -56,7 +41,6 @@ export default function GroupList({ selectGroup }) {
         </div>
       )}
 
-      {/* Modal */}
       {modalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
           <div className="bg-gray-900 p-6 rounded-lg w-full max-w-md">
