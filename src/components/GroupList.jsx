@@ -1,4 +1,5 @@
 import { useGroupManager } from "../hooks/useGroupManager"
+import Modal from "../components/Modal"
 
 export default function GroupList({ selectGroup }) {
   const {
@@ -42,32 +43,37 @@ export default function GroupList({ selectGroup }) {
       )}
 
       {modalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
-          <div className="bg-gray-900 p-6 rounded-lg w-full max-w-md">
-            <h3 className="text-xl text-white mb-4">Crear nuevo grupo</h3>
-            <input
-              type="text"
-              placeholder="Nombre del grupo"
-              value={newGroup}
-              onChange={(e) => setNewGroup(e.target.value)}
-              className="w-full p-2 bg-gray-800 text-white border border-gray-600 rounded mb-4"
-            />
+        <Modal
+          title="Crear nuevo grupo"
+          onClose={() => setModalOpen(false)}
+          footer={
             <div className="flex justify-end gap-2">
               <button
                 onClick={() => setModalOpen(false)}
-                className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
+                className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 cursor-pointer"
               >
                 Cancelar
               </button>
               <button
                 onClick={handleCreateGroup}
-                className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+                className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 cursor-pointer"
               >
                 Crear
               </button>
             </div>
-          </div>
-        </div>
+          }
+        >
+          {({ initialFocusRef }) => (
+            <input
+              ref={initialFocusRef}
+              type="text"
+              placeholder="Nombre del grupo"
+              value={newGroup}
+              onChange={(e) => setNewGroup(e.target.value)}
+              className="w-full p-2 bg-gray-800 text-white border border-gray-600 rounded"
+            />
+          )}
+        </Modal>
       )}
     </div>
   )

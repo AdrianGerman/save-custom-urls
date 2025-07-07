@@ -78,13 +78,13 @@ export default function EntryList({ group, goBack }) {
             <div className="flex justify-end gap-2">
               <button
                 onClick={() => setModalOpen(false)}
-                className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
+                className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 cursor-pointer"
               >
                 Cancelar
               </button>
               <button
                 onClick={handleAddEntry}
-                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 cursor-pointer"
               >
                 Guardar
               </button>
@@ -120,39 +120,44 @@ export default function EntryList({ group, goBack }) {
       )}
 
       {settingsOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
-          <div className="bg-gray-900 p-6 rounded-lg w-full max-w-md">
-            <h3 className="text-xl text-white mb-4">Editar grupo</h3>
-            <input
-              type="text"
-              value={newGroupName}
-              onChange={(e) => setNewGroupName(e.target.value)}
-              className="w-full p-2 bg-gray-800 text-white border border-gray-600 rounded mb-4"
-            />
+        <Modal
+          title="Editar grupo"
+          onClose={() => setSettingsOpen(false)}
+          footer={
             <div className="flex justify-between">
               <button
                 onClick={handleDeleteGroup}
-                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 cursor-pointer"
               >
                 Borrar grupo
               </button>
               <div className="flex gap-2">
                 <button
                   onClick={() => setSettingsOpen(false)}
-                  className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
+                  className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 cursor-pointer"
                 >
                   Cancelar
                 </button>
                 <button
                   onClick={handleRenameGroup}
-                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 cursor-pointer"
                 >
                   Renombrar
                 </button>
               </div>
             </div>
-          </div>
-        </div>
+          }
+        >
+          {({ initialFocusRef }) => (
+            <input
+              ref={initialFocusRef}
+              type="text"
+              value={newGroupName}
+              onChange={(e) => setNewGroupName(e.target.value)}
+              className="w-full p-2 bg-gray-800 text-white border border-gray-600 rounded"
+            />
+          )}
+        </Modal>
       )}
     </div>
   )
