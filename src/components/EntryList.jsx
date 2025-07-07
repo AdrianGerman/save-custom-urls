@@ -1,4 +1,5 @@
 import { useEntryManager } from "../hooks/useEntryManager"
+import Modal from "../components/Modal"
 
 export default function EntryList({ group, goBack }) {
   const {
@@ -70,29 +71,10 @@ export default function EntryList({ group, goBack }) {
       )}
 
       {modalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
-          <div className="bg-gray-900 p-6 rounded-lg w-full max-w-md">
-            <h3 className="text-xl text-white mb-4">Nueva URL</h3>
-            <input
-              type="text"
-              placeholder="Título"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="w-full p-2 bg-gray-800 text-white border border-gray-600 rounded mb-3"
-            />
-            <input
-              type="url"
-              placeholder="URL"
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-              className="w-full p-2 bg-gray-800 text-white border border-gray-600 rounded mb-3"
-            />
-            <textarea
-              placeholder="Nota"
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-              className="w-full p-2 bg-gray-800 text-white border border-gray-600 rounded mb-4"
-            />
+        <Modal
+          title="Nueva URL"
+          onClose={() => setModalOpen(false)}
+          footer={
             <div className="flex justify-end gap-2">
               <button
                 onClick={() => setModalOpen(false)}
@@ -107,8 +89,29 @@ export default function EntryList({ group, goBack }) {
                 Guardar
               </button>
             </div>
-          </div>
-        </div>
+          }
+        >
+          <input
+            type="text"
+            placeholder="Título"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full p-2 bg-gray-800 text-white border border-gray-600 rounded mb-3"
+          />
+          <input
+            type="url"
+            placeholder="URL"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            className="w-full p-2 bg-gray-800 text-white border border-gray-600 rounded mb-3"
+          />
+          <textarea
+            placeholder="Nota"
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            className="w-full p-2 bg-gray-800 text-white border border-gray-600 rounded"
+          />
+        </Modal>
       )}
 
       {settingsOpen && (
