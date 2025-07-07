@@ -91,26 +91,31 @@ export default function EntryList({ group, goBack }) {
             </div>
           }
         >
-          <input
-            type="text"
-            placeholder="Título"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="w-full p-2 bg-gray-800 text-white border border-gray-600 rounded mb-3"
-          />
-          <input
-            type="url"
-            placeholder="URL"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            className="w-full p-2 bg-gray-800 text-white border border-gray-600 rounded mb-3"
-          />
-          <textarea
-            placeholder="Nota"
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-            className="w-full p-2 bg-gray-800 text-white border border-gray-600 rounded"
-          />
+          {({ initialFocusRef }) => (
+            <>
+              <input
+                ref={initialFocusRef}
+                type="text"
+                placeholder="Título"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="w-full p-2 bg-gray-800 text-white border border-gray-600 rounded mb-3"
+              />
+              <input
+                type="url"
+                placeholder="URL"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                className="w-full p-2 bg-gray-800 text-white border border-gray-600 rounded mb-3"
+              />
+              <textarea
+                placeholder="Nota"
+                value={note}
+                onChange={(e) => setNote(e.target.value)}
+                className="w-full p-2 bg-gray-800 text-white border border-gray-600 rounded"
+              />
+            </>
+          )}
         </Modal>
       )}
 
