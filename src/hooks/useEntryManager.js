@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import Swal from "sweetalert2"
 
 export function useEntryManager(group, goBack) {
   const [entries, setEntries] = useState([])
@@ -45,8 +46,22 @@ export function useEntryManager(group, goBack) {
     goBack()
   }
 
-  const handleDeleteGroup = () => {
-    if (!confirm(`¿Seguro que quieres borrar el grupo "${group}"?`)) return
+  const handleDeleteGroup = async () => {
+    const result = await Swal.fire({
+      title: "¿Eliminar grupo?",
+      text: `Esto eliminará el grupo "${group}" y todas sus URLs.`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#555",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+      background: "#1f2937",
+      color: "#fff"
+    })
+
+    if (!result.isConfirmed) return
+
     const allGroups = JSON.parse(localStorage.getItem("urlGroups")) || {}
     delete allGroups[group]
     localStorage.setItem("urlGroups", JSON.stringify(allGroups))
