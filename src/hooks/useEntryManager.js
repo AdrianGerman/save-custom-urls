@@ -9,6 +9,7 @@ export function useEntryManager(group, goBack) {
   const [modalOpen, setModalOpen] = useState(false)
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [newGroupName, setNewGroupName] = useState(group)
+  const [editingIndex, setEditingIndex] = useState(null)
 
   useEffect(() => {
     const allGroups = JSON.parse(localStorage.getItem("urlGroups")) || {}
@@ -25,17 +26,62 @@ export function useEntryManager(group, goBack) {
 
   const handleAddEntry = () => {
     if (!title.trim() || !url.trim()) return
-    const newEntry = { title: title.trim(), url: url.trim(), note: note.trim() }
-    saveEntries([...entries, newEntry])
+
+    const newEntry = {
+      title: title.trim(),
+      url: url.trim(),
+      note: note.trim()
+    }
+
+    let updated
+    if (editingIndex !== null) {
+      updated = [...entries]
+      updated[editingIndex] = newEntry
+    } else {
+      updated = [...entries, newEntry]
+    }
+
+    saveEntries(updated)
     setTitle("")
     setUrl("")
     setNote("")
     setModalOpen(false)
+    setEditingIndex(null)
+  }
+
+  const handleEditEntry = (index) => {
+    const entry = entries[index]
+    setTitle(entry.title)
+    setUrl(entry.url)
+    setNote(entry.note)
+    setEditingIndex(index)
+    setModalOpen(true)
+  }
+
+  const handleDeleteEntry = (index) => {
+    Swal.fire({
+      title: "¿Eliminar esta entrada?",
+      text: "Esta acción no se puede deshacer.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#555",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+      background: "#1f2937",
+      color: "#fff"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const updated = entries.filter((_, i) => i !== index)
+        saveEntries(updated)
+      }
+    })
   }
 
   const handleRenameGroup = () => {
     const trimmed = newGroupName.trim()
     if (!trimmed || trimmed === group) return
+
     const allGroups = JSON.parse(localStorage.getItem("urlGroups")) || {}
     if (allGroups[trimmed]) return
 
@@ -77,6 +123,7 @@ export function useEntryManager(group, goBack) {
     modalOpen,
     settingsOpen,
     newGroupName,
+    editingIndex,
     setTitle,
     setUrl,
     setNote,
@@ -84,6 +131,8 @@ export function useEntryManager(group, goBack) {
     setSettingsOpen,
     setNewGroupName,
     handleAddEntry,
+    handleEditEntry,
+    handleDeleteEntry,
     handleRenameGroup,
     handleDeleteGroup
   }
