@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import Swal from "sweetalert2"
 
+const API_KEY = import.meta.env.VITE_API_KEY
+
 export function useEntryManager(group, goBack) {
   const [entries, setEntries] = useState([])
   const [title, setTitle] = useState("")
@@ -24,21 +26,45 @@ export function useEntryManager(group, goBack) {
     setEntries(newEntries)
   }
 
-  const handleAddEntry = () => {
+  const fetchPreview = async (url) => {
+    try {
+      const res = await fetch(
+        `https://api.linkpreview.net/?key=${API_KEY}&q=${encodeURIComponent(
+          url
+        )}`
+      )
+      const data = await res.json()
+      return {
+        preview: {
+          title: data.title,
+          description: data.description,
+          image: data.image,
+          domain: new URL(data.url).hostname
+        }
+      }
+    } catch {
+      return { preview: null }
+    }
+  }
+
+  const handleAddEntry = async () => {
     if (!title.trim() || !url.trim()) return
 
-    const newEntry = {
+    const baseEntry = {
       title: title.trim(),
       url: url.trim(),
       note: note.trim()
     }
 
+    const { preview } = await fetchPreview(baseEntry.url)
+    const fullEntry = { ...baseEntry, preview }
+
     let updated
     if (editingIndex !== null) {
       updated = [...entries]
-      updated[editingIndex] = newEntry
+      updated[editingIndex] = fullEntry
     } else {
-      updated = [...entries, newEntry]
+      updated = [...entries, fullEntry]
     }
 
     saveEntries(updated)
