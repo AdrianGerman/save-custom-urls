@@ -10,6 +10,7 @@ export default function EntryList({ group, goBack }) {
     modalOpen,
     settingsOpen,
     newGroupName,
+    editingIndex,
     setTitle,
     setUrl,
     setNote,
@@ -17,6 +18,8 @@ export default function EntryList({ group, goBack }) {
     setSettingsOpen,
     setNewGroupName,
     handleAddEntry,
+    handleEditEntry,
+    handleDeleteEntry,
     handleRenameGroup,
     handleDeleteGroup
   } = useEntryManager(group, goBack)
@@ -32,7 +35,7 @@ export default function EntryList({ group, goBack }) {
         </button>
         <button
           onClick={() => setSettingsOpen(true)}
-          className="text-white text-2xl hover:text-gray-400"
+          className="text-white text-2xl hover:text-gray-400 cursor-pointer"
           title="Editar grupo"
         >
           ⚙️
@@ -65,6 +68,20 @@ export default function EntryList({ group, goBack }) {
               >
                 {entry.url}
               </a>
+              <div className="flex gap-4 mt-3 text-sm">
+                <button
+                  onClick={() => handleEditEntry(idx)}
+                  className="text-blue-400 hover:text-blue-300 cursor-pointer"
+                >
+                  ✏️ Editar
+                </button>
+                <button
+                  onClick={() => handleDeleteEntry(idx)}
+                  className="text-red-500 hover:text-red-400 cursor-pointer"
+                >
+                  🗑 Eliminar
+                </button>
+              </div>
             </li>
           ))}
         </ul>
@@ -72,8 +89,13 @@ export default function EntryList({ group, goBack }) {
 
       {modalOpen && (
         <Modal
-          title="Nueva URL"
-          onClose={() => setModalOpen(false)}
+          title={editingIndex !== null ? "Editar URL" : "Nueva URL"}
+          onClose={() => {
+            setModalOpen(false)
+            setTitle("")
+            setUrl("")
+            setNote("")
+          }}
           footer={
             <div className="flex justify-end gap-2">
               <button
