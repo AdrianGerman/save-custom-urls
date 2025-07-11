@@ -1,6 +1,6 @@
 import { Routes, Route, useNavigate, useParams } from "react-router-dom"
-import GroupList from "../components/GroupList"
-import EntryList from "../components/EntryList"
+import GroupList from "../components/GroupList/GroupList"
+import EntryList from "../components/EntryList/EntryList"
 
 export function RoutesApp() {
   return (
