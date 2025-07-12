@@ -12,6 +12,7 @@ export function useEntryManager(group, goBack) {
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [newGroupName, setNewGroupName] = useState(group)
   const [editingIndex, setEditingIndex] = useState(null)
+  const [searchTerm, setSearchTerm] = useState("")
 
   useEffect(() => {
     const allGroups = JSON.parse(localStorage.getItem("urlGroups")) || {}
@@ -25,6 +26,15 @@ export function useEntryManager(group, goBack) {
     localStorage.setItem("urlGroups", JSON.stringify(allGroups))
     setEntries(newEntries)
   }
+
+  const filteredEntries = entries.filter((entry) => {
+    const term = searchTerm.toLowerCase()
+    return (
+      entry.title.toLowerCase().includes(term) ||
+      entry.url.toLowerCase().includes(term) ||
+      entry.note.toLowerCase().includes(term)
+    )
+  })
 
   const fetchPreview = async (url) => {
     try {
@@ -142,7 +152,9 @@ export function useEntryManager(group, goBack) {
   }
 
   return {
-    entries,
+    entries: filteredEntries,
+    searchTerm,
+    setSearchTerm,
     title,
     url,
     note,
