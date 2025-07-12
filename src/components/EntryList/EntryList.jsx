@@ -2,6 +2,7 @@ import { useEntryManager } from "../../hooks/useEntryManager"
 import EntryItem from "./EntryItem"
 import EntryFormModal from "./EntryFormModal"
 import EntrySettingsModal from "./EntrySettingsModal"
+import SettingsIcon from "../icons/SettingsIcon"
 
 export default function EntryList({ group, goBack }) {
   const {
@@ -42,7 +43,7 @@ export default function EntryList({ group, goBack }) {
           className="text-white text-2xl hover:text-gray-400 cursor-pointer"
           title="Editar grupo"
         >
-          ⚙️
+          <SettingsIcon />
         </button>
       </div>
 
