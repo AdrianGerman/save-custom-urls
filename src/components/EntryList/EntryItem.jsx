@@ -1,3 +1,6 @@
+import EditIcon from "../icons/EditIcon"
+import DeleteIcon from "../icons/DeleteIcon"
+
 export default function EntryItem({ entry, onEdit, onDelete }) {
   return (
     <li className="bg-gray-800 p-4 rounded shadow">
@@ -38,15 +41,17 @@ export default function EntryItem({ entry, onEdit, onDelete }) {
       <div className="flex gap-4 mt-3 text-sm">
         <button
           onClick={onEdit}
-          className="text-blue-400 hover:text-blue-300 cursor-pointer"
+          className="text-blue-400 hover:text-blue-300 cursor-pointer flex items-center justify-center gap-1"
         >
-          ✏️ Editar
+          <EditIcon />
+          Editar
         </button>
         <button
           onClick={onDelete}
-          className="text-red-500 hover:text-red-400 cursor-pointer"
+          className="text-red-500 hover:text-red-400 cursor-pointer flex items-center justify-center gap-1"
         >
-          🗑 Eliminar
+          <DeleteIcon />
+          Eliminar
         </button>
       </div>
     </li>
