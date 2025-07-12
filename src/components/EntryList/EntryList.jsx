@@ -13,6 +13,8 @@ export default function EntryList({ group, goBack }) {
     settingsOpen,
     newGroupName,
     editingIndex,
+    searchTerm,
+    setSearchTerm,
     setTitle,
     setUrl,
     setNote,
@@ -52,6 +54,16 @@ export default function EntryList({ group, goBack }) {
         >
           + Añadir
         </button>
+      </div>
+
+      <div className="mb-6">
+        <input
+          type="text"
+          placeholder="Buscar por título, nota o URL..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full p-2 bg-gray-800 text-white border border-gray-600 rounded"
+        />
       </div>
 
       {entries.length === 0 ? (
