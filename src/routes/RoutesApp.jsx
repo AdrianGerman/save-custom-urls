@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom"
 import GroupList from "../components/GroupList/GroupList"
 import EntryList from "../components/EntryList/EntryList"
 import AboutMe from "../components/AboutMe"
+import JsonImport from "../components/JsonImport"
 
 export function RoutesApp() {
   return (
@@ -9,6 +10,7 @@ export function RoutesApp() {
       <Route path="/" element={<GroupListWrapper />} />
       <Route path="/grupo/:group" element={<EntryListWrapper />} />
       <Route path="/sobre-mi" element={<AboutMe />} />
+      <Route path="/json" element={<JsonImport />} />
     </Routes>
   )
 }
