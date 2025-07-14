@@ -16,7 +16,7 @@ export default function ExportButton() {
   return (
     <button
       onClick={handleExport}
-      className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+      className="bg-blue-600 text-white px-4 py-2 cursor-pointer rounded hover:bg-blue-700 transition"
     >
       📤 Exportar JSON
     </button>

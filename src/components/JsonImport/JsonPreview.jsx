@@ -8,7 +8,7 @@ export default function JsonPreview({ jsonData, onApply }) {
 
       <button
         onClick={onApply}
-        className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
+        className="px-4 py-2 bg-green-600 text-white rounded cursor-pointer hover:bg-green-700 transition"
       >
         Aplicar JSON en la App
       </button>
