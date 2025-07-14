@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom"
 import GroupList from "../components/GroupList/GroupList"
 import EntryList from "../components/EntryList/EntryList"
 import AboutMe from "../components/AboutMe"
-import JsonImport from "../components/JsonImport"
+import JsonImport from "../components/JsonImport/JsonImport"
 
 export function RoutesApp() {
   return (
