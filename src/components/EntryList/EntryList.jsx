@@ -3,6 +3,7 @@ import EntryItem from "./EntryItem"
 import EntryFormModal from "./EntryFormModal"
 import EntrySettingsModal from "./EntrySettingsModal"
 import SettingsIcon from "../icons/SettingsIcon"
+import EntryToolbar from "./EntryToolbar"
 
 export default function EntryList({ group, goBack }) {
   const {
@@ -31,21 +32,7 @@ export default function EntryList({ group, goBack }) {
 
   return (
     <div className="text-white">
-      <div className="flex justify-between items-center mb-12">
-        <button
-          onClick={goBack}
-          className="bg-red-600 px-4 py-2 rounded hover:bg-red-700 cursor-pointer"
-        >
-          ← Volver a grupos
-        </button>
-        <button
-          onClick={() => setSettingsOpen(true)}
-          className="text-white text-2xl hover:text-gray-400 cursor-pointer"
-          title="Editar grupo"
-        >
-          <SettingsIcon />
-        </button>
-      </div>
+      <EntryToolbar onBack={goBack} onSettings={() => setSettingsOpen(true)} />
 
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">URLs en: {group}</h2>
