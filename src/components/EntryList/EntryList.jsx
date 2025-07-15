@@ -30,6 +30,13 @@ export default function EntryList({ group, goBack }) {
     handleDeleteGroup
   } = useEntryManager(group, goBack)
 
+  const handleCloseModal = () => {
+    setModalOpen(false)
+    setTitle("")
+    setUrl("")
+    setNote("")
+  }
+
   return (
     <div className="text-white">
       <EntryToolbar onBack={goBack} onSettings={() => setSettingsOpen(true)} />
@@ -71,12 +78,7 @@ export default function EntryList({ group, goBack }) {
 
       <EntryFormModal
         isOpen={modalOpen}
-        onClose={() => {
-          setModalOpen(false)
-          setTitle("")
-          setUrl("")
-          setNote("")
-        }}
+        onClose={handleCloseModal}
         onSave={handleAddEntry}
         title={title}
         url={url}
