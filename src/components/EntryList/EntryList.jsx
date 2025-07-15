@@ -54,15 +54,19 @@ export default function EntryList({ group, goBack }) {
       <div className="mb-6">
         <input
           type="text"
-          placeholder="Buscar por título, nota o URL..."
+          placeholder="🔍 Buscar por título, nota o URL..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full p-2 bg-gray-800 text-white border border-gray-600 rounded"
+          className="w-full p-2 bg-gray-800 text-white border border-gray-600 rounded placeholder-gray-400"
         />
       </div>
 
       {entries.length === 0 ? (
-        <p className="text-gray-400">No hay URLs en este grupo aún.</p>
+        <p className="text-gray-400">
+          {searchTerm
+            ? "No se encontraron resultados para tu búsqueda."
+            : "No hay URLs en este grupo aún."}
+        </p>
       ) : (
         <ul className="space-y-4">
           {entries.map((entry, idx) => (
