@@ -38,7 +38,7 @@ export default function EntryList({ group, goBack }) {
   }
 
   return (
-    <div className="text-white">
+    <div className="text-white pulse-fade-in">
       <EntryToolbar onBack={goBack} onSettings={() => setSettingsOpen(true)} />
 
       <div className="flex justify-between items-center mb-6">
