@@ -14,7 +14,7 @@ export default function GroupList({ selectGroup }) {
   } = useGroupManager()
 
   return (
-    <div className="max-w-5xl mx-auto">
+    <div className="max-w-5xl mx-auto fade-in-down">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-semibold text-white">Tus Grupos</h2>
         <div className="flex gap-2">
