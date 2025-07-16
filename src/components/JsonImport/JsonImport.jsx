@@ -32,7 +32,7 @@ export default function JsonImport() {
   }
 
   return (
-    <div className="text-white max-w-3xl mx-auto px-4 py-10">
+    <div className="text-white max-w-3xl mx-auto px-4 py-10 slide-in-bottom">
       <h2 className="text-3xl font-bold mb-4">Importar JSON</h2>
       <p className="text-gray-400 mb-6">
         Puedes importar un archivo JSON que contenga tus grupos y entradas. Una
