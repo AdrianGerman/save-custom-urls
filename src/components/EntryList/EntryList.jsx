@@ -45,7 +45,7 @@ export default function EntryList({ group, goBack }) {
         <h2 className="text-2xl font-bold">URLs en: {group}</h2>
         <button
           onClick={() => setModalOpen(true)}
-          className="bg-green-600 px-4 py-2 rounded hover:bg-green-700"
+          className="bg-green-600 px-4 py-2 rounded hover:bg-green-700 cursor-pointer"
         >
           + Añadir
         </button>
