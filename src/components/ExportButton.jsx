@@ -1,7 +1,27 @@
+import Swal from "sweetalert2"
+
 export default function ExportButton() {
-  const handleExport = () => {
+  const handleExport = async () => {
     const data = localStorage.getItem("urlGroups")
     if (!data) return
+
+    const groups = Object.keys(JSON.parse(data))
+    const groupCount = groups.length
+
+    const result = await Swal.fire({
+      title: "¿Exportar grupos?",
+      text: `Se exportarán ${groupCount} grupo${
+        groupCount !== 1 ? "s" : ""
+      }. ¿Deseas continuar?`,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Sí, exportar",
+      cancelButtonText: "Cancelar",
+      background: "#1f2937",
+      color: "#fff"
+    })
+
+    if (!result.isConfirmed) return
 
     const blob = new Blob([data], { type: "application/json" })
     const url = URL.createObjectURL(blob)
