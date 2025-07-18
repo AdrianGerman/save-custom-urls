@@ -1,14 +1,10 @@
 import SettingsIcon from "../icons/SettingsIcon"
+import BackButton from "../ui/BackButton"
 
 export default function EntryToolbar({ onBack, onSettings }) {
   return (
     <div className="flex justify-between items-center mb-12">
-      <button
-        onClick={onBack}
-        className="bg-red-600 px-4 py-2 rounded hover:bg-red-700 cursor-pointer"
-      >
-        ← Volver a grupos
-      </button>
+      <BackButton onClick={onBack} />
       <button
         onClick={onSettings}
         className="text-white text-2xl hover:text-gray-400 cursor-pointer"

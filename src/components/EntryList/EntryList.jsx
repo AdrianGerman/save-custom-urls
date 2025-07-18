@@ -2,7 +2,6 @@ import { useEntryManager } from "../../hooks/useEntryManager"
 import EntryItem from "./EntryItem"
 import EntryFormModal from "./EntryFormModal"
 import EntrySettingsModal from "./EntrySettingsModal"
-import SettingsIcon from "../icons/SettingsIcon"
 import EntryToolbar from "./EntryToolbar"
 
 export default function EntryList({ group, goBack }) {
