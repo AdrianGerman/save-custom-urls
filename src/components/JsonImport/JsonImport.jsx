@@ -3,9 +3,13 @@ import Swal from "sweetalert2"
 import JsonExample from "./JsonExample"
 import JsonPreview from "./JsonPreview"
 import FileInput from "./FileInput"
+import BackButton from "../ui/BackButton"
+
+import { useNavigate } from "react-router-dom"
 
 export default function JsonImport() {
   const [jsonPreview, setJsonPreview] = useState(null)
+  const navigate = useNavigate()
 
   const handleFileLoaded = (parsed) => {
     setJsonPreview(parsed)
@@ -32,7 +36,10 @@ export default function JsonImport() {
   }
 
   return (
-    <div className="text-white max-w-3xl mx-auto px-4 py-10 slide-in-bottom">
+    <div className="text-white max-w-3xl mx-auto px-4 py-2 slide-in-bottom">
+      <div className="mb-6">
+        <BackButton onClick={() => navigate(-1)} />
+      </div>
       <h2 className="text-3xl font-bold mb-4">Importar JSON</h2>
       <p className="text-gray-400 mb-6">
         Puedes importar un archivo JSON que contenga tus grupos y entradas. Una
