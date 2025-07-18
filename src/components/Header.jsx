@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import Logo from "../assets/logo.png"
 
 export default function Header() {
   return (
@@ -8,7 +9,13 @@ export default function Header() {
           to="/"
           className="flex items-center gap-2 text-white hover:text-gray-300 transition"
         >
-          <span className="text-2xl">🔖</span>
+          <span className="text-2xl">
+            <img
+              src={Logo}
+              alt="logo"
+              className="w-10 h-10 bg-purple-950 rounded-4xl p-1.5"
+            />
+          </span>
           <h1 className="text-2xl font-bold">Gestor de URLs</h1>
         </Link>
 
